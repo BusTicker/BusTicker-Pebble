@@ -3,6 +3,11 @@
     "resources": {
         "media": [
             {
+                "name": "IMAGE_TIME_REMAINING",
+                "type": "png",
+                "file": "images/time.png"
+            },
+            {
                 "name": "IMAGE_MENU_ICON",
                 "type": "png",
                 "menuIcon": true,
