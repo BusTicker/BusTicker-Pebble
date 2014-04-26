@@ -1,5 +1,12 @@
 #include <pebble.h>
 
+enum Bus_Key{
+  ROUTE_NAME_KEY = 0x0,
+  STOP_NAME_KEY = 0x1,
+  FIRST_TIME_KEY = 0x2,
+  SECOND_TIME_KEY = 0x3  
+};
+
 static Window *window;
 
 static TextLayer *route_name;
@@ -12,6 +19,8 @@ static GFont futura_med;
 static GFont futura_med_small;
 static GFont futura_hev;
 
+AppSync sync;
+uint8_t sync_buffer[128];
 
 /*	Button click event handlers
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -32,6 +41,31 @@ static void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
 }
 */
+
+static void sync_error_callback(DictionaryResult dict_error, AppMessageResult app_message_error, void *context) {
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "App Message Sync Error: %d", app_message_error);
+}
+
+static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tuple, const Tuple* old_tuple, void* context) {
+  switch (key) {
+    case ROUTE_NAME_KEY:
+      text_layer_set_text(route_name, new_tuple->value->cstring);
+      layer_mark_dirty((Layer *)route_name);
+      break;
+    case STOP_NAME_KEY:
+      text_layer_set_text(stop_name, new_tuple->value->cstring);
+      layer_mark_dirty((Layer *)stop_name);
+      break;
+    case FIRST_TIME_KEY:
+      text_layer_set_text(first_time, new_tuple->value->cstring);
+      layer_mark_dirty((Layer *)first_time);
+      break;
+    case SECOND_TIME_KEY:
+      text_layer_set_text(second_time, new_tuple->value->cstring);
+      layer_mark_dirty((Layer *)second_time);
+      break;
+  }
+}
 
 static void window_load(Window *window) {
   //Add the main window layer
@@ -68,9 +102,16 @@ static void window_load(Window *window) {
   text_layer_set_text(route_name, "GRE-N");
   text_layer_set_text(stop_name, "North-Oakland");
   
-  //Set font for those text layers
-  //text_layer_set_font(first_time, );
-  //text_layer_set_size(second_time, 30);  
+  //Get data from iPhone
+  Tuplet initial_values[] = {
+    TupletCString(ROUTE_NAME_KEY, "N/A"),
+    TupletCString(STOP_NAME_KEY, "N/A"),
+    TupletCString(FIRST_TIME_KEY, "N/A"),
+    TupletCString(SECOND_TIME_KEY, "N/A")
+  };
+  app_sync_init(&sync, sync_buffer, sizeof(sync_buffer), initial_values, 
+                  4, sync_tuple_changed_callback, 
+                  sync_error_callback, NULL);
 
   //Add the bitmap & text layers to the screen
   layer_add_child(window_layer, bitmap_layer_get_layer(first_time_image));
@@ -87,6 +128,7 @@ static void window_load(Window *window) {
 }
 
 static void window_unload(Window *window) {
+  app_sync_deinit(&sync);
   text_layer_destroy(route_name);
   text_layer_destroy(stop_name);
   text_layer_destroy(first_time);
@@ -100,6 +142,11 @@ static void window_unload(Window *window) {
 
 static void init(void) {
   window = window_create();
+  
+  //Synchronization with phone
+  const int inbound_size = 128;
+  const int outbound_size = 128;
+  app_message_open(inbound_size, outbound_size);
   //window_set_click_config_provider(window, click_config_provider);
   window_set_window_handlers(window, (WindowHandlers) {
 	.load = window_load,
