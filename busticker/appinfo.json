@@ -1,0 +1,25 @@
+{
+    "uuid": "7c88ad85-4732-47e9-ae66-9a303c8ab8d7",
+    "resources": {
+        "media": [
+            {
+                "name": "IMAGE_MENU_ICON",
+                "type": "png",
+                "menuIcon": true,
+                "file": "images/bus.png"
+            }
+        ]
+    },
+    "capabilities": [
+        ""
+    ],
+    "companyName": "jwidmer",
+    "shortName": "BusTicker",
+    "longName": "BusTicker",
+    "watchapp": {
+        "watchface": false
+    },
+    "versionCode": 1,
+    "appKeys": {},
+    "versionLabel": "1.0"
+}
