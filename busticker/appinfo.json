@@ -1,30 +1,45 @@
 {
-    "uuid": "7c88ad85-4732-47e9-ae66-9a303c8ab8d7",
-    "resources": {
-        "media": [
-            {
-                "name": "IMAGE_TIME_REMAINING",
-                "type": "png",
-                "file": "images/time.png"
-            },
-            {
-                "name": "IMAGE_MENU_ICON",
-                "type": "png",
-                "menuIcon": true,
-                "file": "images/bus.png"
-            }
-        ]
-    },
+    "companyName": "jwidmer",
+    "appKeys": {},
     "capabilities": [
         ""
     ],
-    "companyName": "jwidmer",
-    "shortName": "BusTicker",
+    "resources": {
+        "media": [
+            {
+                "name": "FONT_FUTURA_HEV_32",
+                "file": "fonts/FuturaHeavy.ttf",
+                "type": "font"
+            },
+            {
+                "name": "FONT_FUTURA_MED_18",
+                "file": "fonts/FuturaMedium.ttf",
+                "type": "font"
+            },
+            {
+                "name": "FONT_FUTURA_MED_30",
+                "file": "fonts/FuturaMedium.ttf",
+                "type": "font"
+            },
+            {
+                "name": "IMAGE_TIME_REMAINING",
+                "file": "images/time 2.png",
+                "type": "png"
+            },
+            {
+                "name": "IMAGE_MENU_ICON",
+                "menuIcon": true,
+                "file": "images/bus.png",
+                "type": "png"
+            }
+        ]
+    },
+    "uuid": "7c88ad85-4732-47e9-ae66-9a303c8ab8d7",
+    "versionCode": 1,
     "longName": "BusTicker",
+    "shortName": "BusTicker",
+    "versionLabel": "1.0",
     "watchapp": {
         "watchface": false
-    },
-    "versionCode": 1,
-    "appKeys": {},
-    "versionLabel": "1.0"
+    }
 }
