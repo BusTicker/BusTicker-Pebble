@@ -36,8 +36,8 @@
     },
     "uuid": "7c88ad85-4732-47e9-ae66-9a303c8ab8d7",
     "versionCode": 1,
-    "longName": "BusTicker",
-    "shortName": "BusTicker",
+    "longName": "BusTickr",
+    "shortName": "BusTickr",
     "versionLabel": "1.0",
     "watchapp": {
         "watchface": false
