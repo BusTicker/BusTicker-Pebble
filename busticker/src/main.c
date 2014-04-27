@@ -89,7 +89,7 @@ static void window_load(Window *window) {
   
   //Create/position the text layers
   route_name = text_layer_create((GRect) { .origin = { 2, 2 }, .size = { 144, 34 } });
-  stop_name = text_layer_create((GRect) { .origin = { 3, 37 }, .size = { 144, 39 } });
+  stop_name = text_layer_create((GRect) { .origin = { 3, 37 }, .size = { 144, 42 } });
   first_time = text_layer_create((GRect) { .origin = { 38, 80 }, .size = { 106, 34 } });
   second_time = text_layer_create((GRect) { .origin = { 38, 110 }, .size = { 106, 34 } });
     
