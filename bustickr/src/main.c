@@ -80,18 +80,18 @@ static void window_load(Window *window) {
   futura_hev = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_FUTURA_HEV_32));
  
   //Create bitmap layers for the screen
-  first_time_image = bitmap_layer_create((GRect) { .origin = { 2, 80 }, .size = { 34, 34 } });
-  second_time_image = bitmap_layer_create((GRect) { .origin = { 2, 110 }, .size = { 34, 34 } });
+  first_time_image = bitmap_layer_create((GRect) { .origin = { 2, 84 }, .size = { 34, 34 } });
+  second_time_image = bitmap_layer_create((GRect) { .origin = { 2, 114 }, .size = { 34, 34 } });
 
   //Add bitmampped images to those layers
   bitmap_layer_set_bitmap(first_time_image, gbitmap_create_with_resource(RESOURCE_ID_IMAGE_TIME_REMAINING));
   bitmap_layer_set_bitmap(second_time_image, gbitmap_create_with_resource(RESOURCE_ID_IMAGE_TIME_REMAINING));
   
   //Create/position the text layers
-  route_name = text_layer_create((GRect) { .origin = { 2, 2 }, .size = { 144, 34 } });
-  stop_name = text_layer_create((GRect) { .origin = { 3, 37 }, .size = { 144, 42 } });
-  first_time = text_layer_create((GRect) { .origin = { 38, 80 }, .size = { 106, 34 } });
-  second_time = text_layer_create((GRect) { .origin = { 38, 110 }, .size = { 106, 34 } });
+  route_name = text_layer_create((GRect) { .origin = { 2, 2 }, .size = { 144, 42 } });
+  stop_name = text_layer_create((GRect) { .origin = { 3, 44 }, .size = { 144, 42 } });
+  first_time = text_layer_create((GRect) { .origin = { 38, 84 }, .size = { 106, 34 } });
+  second_time = text_layer_create((GRect) { .origin = { 38, 114 }, .size = { 106, 34 } });
     
   //Set proper overflow
   text_layer_set_overflow_mode(stop_name, GTextOverflowModeFill);
@@ -114,12 +114,13 @@ static void window_load(Window *window) {
                   sync_error_callback, NULL);
 
   //Add the bitmap & text layers to the screen
+  layer_add_child(window_layer, text_layer_get_layer(route_name));
+  layer_add_child(window_layer, text_layer_get_layer(stop_name));
   layer_add_child(window_layer, bitmap_layer_get_layer(first_time_image));
   layer_add_child(window_layer, bitmap_layer_get_layer(second_time_image));
   layer_add_child(window_layer, text_layer_get_layer(first_time));
   layer_add_child(window_layer, text_layer_get_layer(second_time));
-  layer_add_child(window_layer, text_layer_get_layer(route_name));
-  layer_add_child(window_layer, text_layer_get_layer(stop_name));
+  
 }
 
 static void window_unload(Window *window) {

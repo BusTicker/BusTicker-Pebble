@@ -7,8 +7,19 @@
     "resources": {
         "media": [
             {
-                "name": "FONT_FUTURA_HEV_32",
-                "file": "fonts/FuturaHeavy.ttf",
+                "name": "IMAGE_MENU_ICON",
+                "menuIcon": true,
+                "file": "images/bus.png",
+                "type": "png"
+            },
+            {
+                "name": "IMAGE_TIME_REMAINING",
+                "file": "images/time 2.png",
+                "type": "png"
+            },
+            {
+                "name": "FONT_FUTURA_MED_30",
+                "file": "fonts/FuturaMedium.ttf",
                 "type": "font"
             },
             {
@@ -17,20 +28,9 @@
                 "type": "font"
             },
             {
-                "name": "FONT_FUTURA_MED_30",
-                "file": "fonts/FuturaMedium.ttf",
+                "name": "FONT_FUTURA_HEV_32",
+                "file": "fonts/FuturaHeavy.ttf",
                 "type": "font"
-            },
-            {
-                "name": "IMAGE_TIME_REMAINING",
-                "file": "images/time 2.png",
-                "type": "png"
-            },
-            {
-                "name": "IMAGE_MENU_ICON",
-                "menuIcon": true,
-                "file": "images/bus.png",
-                "type": "png"
             }
         ]
     },
