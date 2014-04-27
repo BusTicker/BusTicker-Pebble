@@ -89,15 +89,11 @@ static void window_load(Window *window) {
   
   //Create/position the text layers
   route_name = text_layer_create((GRect) { .origin = { 2, 2 }, .size = { 144, 34 } });
-  stop_name = text_layer_create((GRect) { .origin = { 3, 37 }, .size = { 144, 36 } });
+  stop_name = text_layer_create((GRect) { .origin = { 3, 37 }, .size = { 144, 39 } });
   first_time = text_layer_create((GRect) { .origin = { 38, 80 }, .size = { 106, 34 } });
   second_time = text_layer_create((GRect) { .origin = { 38, 110 }, .size = { 106, 34 } });
     
-  //Add text to those layers
-  text_layer_set_text(route_name, "GRE-N");
-  text_layer_set_text(stop_name, "Austin & South Blvd/Corcoran");
-  text_layer_set_text(first_time, "7 Min");
-  text_layer_set_text(second_time, "15 Min");
+  //Set proper overflow
   text_layer_set_overflow_mode(stop_name, GTextOverflowModeFill);
   
   //Set font for text layers
