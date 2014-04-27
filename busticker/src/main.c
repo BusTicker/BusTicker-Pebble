@@ -22,6 +22,7 @@ static GFont futura_hev;
 AppSync sync;
 uint8_t sync_buffer[128];
 
+//Not currently supporting the buttons
 /*	Button click event handlers
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   text_layer_set_text(text_layer, "Select");
@@ -71,36 +72,39 @@ static void window_load(Window *window) {
   //Add the main window layer
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
+  GRect max_window_bounds = GRect(0, 0, bounds.size.w, 168);
+  
+  //Declare fonts
   futura_med = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_FUTURA_MED_30));
   futura_med_small = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_FUTURA_MED_18));
   futura_hev = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_FUTURA_HEV_32));
  
   //Create bitmap layers for the screen
-  first_time_image = bitmap_layer_create((GRect) { .origin = { 2, 70 }, .size = { 34, 34 } });
+  first_time_image = bitmap_layer_create((GRect) { .origin = { 2, 80 }, .size = { 34, 34 } });
   second_time_image = bitmap_layer_create((GRect) { .origin = { 2, 110 }, .size = { 34, 34 } });
 
   //Add bitmampped images to those layers
   bitmap_layer_set_bitmap(first_time_image, gbitmap_create_with_resource(RESOURCE_ID_IMAGE_TIME_REMAINING));
   bitmap_layer_set_bitmap(second_time_image, gbitmap_create_with_resource(RESOURCE_ID_IMAGE_TIME_REMAINING));
   
-  //Create text layers for the text next to the bitmaps
-  first_time = text_layer_create((GRect) { .origin = { 38, 70 }, .size = { 106, 34 } });
-  second_time = text_layer_create((GRect) { .origin = { 38, 110 }, .size = { 106, 34 } });
+  //Create/position the text layers
   route_name = text_layer_create((GRect) { .origin = { 2, 2 }, .size = { 144, 34 } });
-  stop_name = text_layer_create((GRect) { .origin = { 2, 40 }, .size = { 144, 34 } });
-
-
-  //Set font for text layers
-  text_layer_set_font(first_time, futura_med);
-  text_layer_set_font(second_time, futura_med);
-  text_layer_set_font(route_name, futura_hev);
-  text_layer_set_font(stop_name, futura_med_small);
-  
+  stop_name = text_layer_create((GRect) { .origin = { 3, 37 }, .size = { 144, 36 } });
+  first_time = text_layer_create((GRect) { .origin = { 38, 80 }, .size = { 106, 34 } });
+  second_time = text_layer_create((GRect) { .origin = { 38, 110 }, .size = { 106, 34 } });
+    
   //Add text to those layers
+  text_layer_set_text(route_name, "GRE-N");
+  text_layer_set_text(stop_name, "Austin & South Blvd/Corcoran");
   text_layer_set_text(first_time, "7 Min");
   text_layer_set_text(second_time, "15 Min");
-  text_layer_set_text(route_name, "GRE-N");
-  text_layer_set_text(stop_name, "North-Oakland");
+  text_layer_set_overflow_mode(stop_name, GTextOverflowModeFill);
+  
+  //Set font for text layers
+  text_layer_set_font(route_name, futura_hev);
+  text_layer_set_font(stop_name, futura_med_small);
+  text_layer_set_font(first_time, futura_med);
+  text_layer_set_font(second_time, futura_med);
   
   //Get data from iPhone
   Tuplet initial_values[] = {
@@ -120,11 +124,6 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(second_time));
   layer_add_child(window_layer, text_layer_get_layer(route_name));
   layer_add_child(window_layer, text_layer_get_layer(stop_name));
-
-  //text_layer = text_layer_create((GRect) { .origin = { 0, 72 }, .size = { bounds.size.w, 20 } });
-  //text_layer_set_text(text_layer, "Press a button");
-  //text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
-  //layer_add_child(window_layer, text_layer_get_layer(text_layer));
 }
 
 static void window_unload(Window *window) {
